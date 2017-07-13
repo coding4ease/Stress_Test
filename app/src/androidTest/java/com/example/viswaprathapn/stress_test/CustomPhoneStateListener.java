@@ -1,6 +1,8 @@
 package com.example.viswaprathapn.stress_test;
 
+import android.app.Instrumentation;
 import android.content.Context;
+import android.support.test.InstrumentationRegistry;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.widget.Toast;
@@ -11,7 +13,7 @@ import android.widget.Toast;
 
 public class CustomPhoneStateListener extends PhoneStateListener {
 
-    Context context;
+    Context context = InstrumentationRegistry.getContext();
     public CustomPhoneStateListener(Context context){
         super();
         this.context = context;

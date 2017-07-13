@@ -106,8 +106,6 @@ public class Stress_test extends HelperClass {
         //HelperClass.launchApp(Constants.FILE_EXPLORER);
         File source = DOWNLOADS;
         File destination = PICTURES;
-        String path = Environment.getExternalStorageDirectory().getPath();
-        Log.i(Constants.TAG, path);
         /*UiObject internal_storage = UiElements.file_explorer_option.getChild(new UiSelector().packageName(Constants.FILE_EXPLORER)
                 .className("android.widget.TextView").text("Internal storage"));*/
         copyToSDcard(source, destination);
@@ -117,6 +115,11 @@ public class Stress_test extends HelperClass {
             Log.i(Constants.TAG, file_list);
     }
 
+    @Test
+    public void test_06() throws InterruptedException, UiObjectNotFoundException {
+        //play(MUSIC);
+        open(PICTURES);
+    }
     @Test
     public void test_04() throws IOException, UiObjectNotFoundException, InterruptedException, RemoteException {
 

@@ -53,6 +53,9 @@ public class UiElements {
     public static UiObject OK_button = mDevice.findObject(new UiSelector().packageName(Constants.FILE_EXPLORER)
             .resourceId("com.android.qrdfileexplorer:id/layout_bottom").childSelector(new UiSelector().className("android.widget.Button")
                     .resourceId("com.android.qrdfileexplorer:id/btn_ok")));
+    public static UiCollection file_list = new UiCollection(new UiSelector().packageName("com.android.qrdfileexplorer").className("android.widget.ListView")
+            .resourceId("android:id/list"));
+
 
     //Dialer
     public static UiObject dial_pad = mDevice.findObject(new UiSelector().packageName(Constants.DIALER).descriptionContains("dial pad"));

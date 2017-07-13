@@ -12,6 +12,7 @@ import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
+import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -29,6 +30,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 
+import static android.content.Context.TELEPHONY_SERVICE;
 import static com.example.viswaprathapn.stress_test.Constants.DOWNLOADS;
 import static com.example.viswaprathapn.stress_test.Constants.MUSIC;
 import static com.example.viswaprathapn.stress_test.Constants.PICTURES;
@@ -48,7 +50,9 @@ import static com.example.viswaprathapn.stress_test.UiElements.dial_pad;
 import static com.example.viswaprathapn.stress_test.UiElements.directory_structure;
 import static com.example.viswaprathapn.stress_test.UiElements.end_call;
 import static com.example.viswaprathapn.stress_test.UiElements.enter_no;
+import static com.example.viswaprathapn.stress_test.UiElements.file_list;
 import static com.example.viswaprathapn.stress_test.UiElements.internal_storage;
+import static com.example.viswaprathapn.stress_test.UiElements.file_list;
 import static com.example.viswaprathapn.stress_test.UiElements.select_all;
 
 /**
@@ -79,6 +83,7 @@ public class HelperClass {
         }
         return false;
     }
+
     public static boolean launchApp(String AppName){
         Context context = InstrumentationRegistry.getContext();
         final Intent intent = context.getPackageManager()
@@ -86,6 +91,18 @@ public class HelperClass {
         // Clear out any previous instances
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
+        TelephonyManager sMgr;
+        PhoneStateListener phoneListener = new PhoneStateListener(){
+            @Override
+            public void onCallStateChanged(int state, String incomingNumber) {
+                super.onCallStateChanged(state, incomingNumber);
+                Log.d("s@urav", "s@urav CallStateChanged" + state);
+            }
+        };
+        sMgr = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
+        sMgr.listen(phoneListener,
+                PhoneStateListener.LISTEN_CALL_STATE);
+
 
         // Wait for the app to appear
         mDevice.wait(Until.hasObject(By.pkg(AppName).depth(0)),
@@ -250,8 +267,8 @@ public class HelperClass {
             Pictures.click();
         }
         else if (source == MUSIC){
-            directory_structure.scrollTextIntoView("Music");
-            Music.click();
+                directory_structure.scrollTextIntoView("Music");
+                Music.click();
         }
         Thread.sleep(1000);
         More_Options.click();
@@ -284,6 +301,36 @@ public class HelperClass {
         OK_button.click();
         Thread.sleep(1000);
         clearAllRecentApps();
+    }
+
+
+    public static void play(File source) throws UiObjectNotFoundException, InterruptedException {
+        launchApp(Constants.FILE_EXPLORER);
+        if (source == SD_MUSIC)
+            SD_card.click();
+        else
+            internal_storage.click();
+        directory_structure.scrollTextIntoView("Music");
+        Music.click();
+        file_list.getChild(new UiSelector().className("android.widget.RelativeLayout").index(1)).click();
+        delay(120);
+        mDevice.pressBack();
+    }
+
+    public static void open(File source) throws UiObjectNotFoundException {
+        launchApp(Constants.FILE_EXPLORER);
+        if (source == SD_PICTURES)
+            SD_card.click();
+        else
+            internal_storage.click();
+        directory_structure.scrollTextIntoView("Pictures");
+        Pictures.click();
+        for (String file_name:source.list()){
+            directory_structure.scrollTextIntoView(file_name);
+            file_list.getChildByText(new UiSelector().className("android.widget.RelativeLayout"),file_name).click();
+        }
+
+
     }
 
     public static void callByDialer(long number, int wait) throws UiObjectNotFoundException, InterruptedException {
