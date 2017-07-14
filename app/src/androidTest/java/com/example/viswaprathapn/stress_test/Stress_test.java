@@ -55,6 +55,7 @@ public class Stress_test extends HelperClass {
         Log.i(Constants.TAG, "Initialize");
         Assert.assertTrue("Device Instance is NULL", setUp());
     }
+
     @Test
     public void test_01() throws UiObjectNotFoundException, IOException, InterruptedException {
         HelperClass.launchApp(Constants.BROWSER);
@@ -122,7 +123,7 @@ public class Stress_test extends HelperClass {
     }
     @Test
     public void test_04() throws IOException, UiObjectNotFoundException, InterruptedException, RemoteException {
-
+        //registerListener();
         callByDialer(9035087822L, 60);
     }
 }

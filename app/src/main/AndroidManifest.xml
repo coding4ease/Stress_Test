@@ -4,11 +4,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <receiver android:name=".PhoneStateBroadcastReceiver">
-        <intent-filter>
-            <action android:name="android.intent.action.PHONE_STATE"/>
-        </intent-filter>
-    </receiver>
+
 
     <application
         android:allowBackup="true"

@@ -1,5 +1,6 @@
 package com.example.viswaprathapn.stress_test;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -84,6 +85,13 @@ public class HelperClass {
         return false;
     }
 
+    public static void registerListener(){
+        Context context = InstrumentationRegistry.getContext();
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        //Log.i(Constants.TAG, getClass().getSimpleName());
+        telephonyManager.listen(new CustomPhoneStateListener(context), PhoneStateListener.LISTEN_CALL_STATE);
+    }
+
     public static boolean launchApp(String AppName){
         Context context = InstrumentationRegistry.getContext();
         final Intent intent = context.getPackageManager()
@@ -91,7 +99,7 @@ public class HelperClass {
         // Clear out any previous instances
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
-        TelephonyManager sMgr;
+        /*TelephonyManager sMgr;
         PhoneStateListener phoneListener = new PhoneStateListener(){
             @Override
             public void onCallStateChanged(int state, String incomingNumber) {
@@ -101,7 +109,7 @@ public class HelperClass {
         };
         sMgr = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
         sMgr.listen(phoneListener,
-                PhoneStateListener.LISTEN_CALL_STATE);
+                PhoneStateListener.LISTEN_CALL_STATE);*/
 
 
         // Wait for the app to appear
@@ -351,4 +359,11 @@ public class HelperClass {
     public static void delay(int wait) throws InterruptedException {
         Thread.sleep(wait*1000);
     }
+    /*static PhoneStateListener phoneListener = new PhoneStateListener() {
+        @Override
+        public void onCallStateChanged(int state, String incomingNumber) {
+            super.onCallStateChanged(state, incomingNumber);
+            Log.d(Constants.TAG,"####Test Call state is"+state + " :Incoming number:"+incomingNumber);
+        }
+    };*/
 }
