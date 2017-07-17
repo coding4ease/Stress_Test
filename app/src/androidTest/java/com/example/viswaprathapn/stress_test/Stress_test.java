@@ -12,6 +12,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.intent.*;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.UiObject;
@@ -42,6 +43,7 @@ import com.example.viswaprathapn.stress_test.UiElements;
 import static com.example.viswaprathapn.stress_test.Constants.DOWNLOADS;
 import static com.example.viswaprathapn.stress_test.Constants.MUSIC;
 import static com.example.viswaprathapn.stress_test.Constants.PICTURES;
+import static com.example.viswaprathapn.stress_test.UiElements.home_screen_pages;
 
 /**
  * Created by viswaprathap.n on 21-06-2017.
@@ -120,10 +122,20 @@ public class Stress_test extends HelperClass {
     public void test_06() throws InterruptedException, UiObjectNotFoundException {
         //play(MUSIC);
         open(PICTURES);
+
     }
     @Test
     public void test_04() throws IOException, UiObjectNotFoundException, InterruptedException, RemoteException {
         //registerListener();
         callByDialer(9035087822L, 60);
+    }
+
+    @Test
+    public void test_05() throws UiObjectNotFoundException {
+        int home_page_count = home_screen_pages.getChildCount(new UiSelector().packageName(Constants.HOME_SCREEN_PACKAGE)
+                .className("android.widget.FrameLayout"));
+        /*UiObject active_page = home_screen_pages.getChild(new UiSelector().className("android.widget.ImageView").
+                resourceId("com.google.android.googlequicksearchbox:id/active"));*/
+        UiObject2 [] page_indicator = home_screen_pages.
     }
 }

@@ -1,7 +1,9 @@
 package com.example.viswaprathapn.stress_test;
 
+import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
@@ -65,4 +67,11 @@ public class UiElements {
             .resourceId("com.android.dialer:id/dialpad_floating_action_button_container"));
     public static UiObject end_call = mDevice.findObject(new UiSelector().packageName(Constants.DIALER)
             .resourceId("com.android.dialer:id/floating_end_call_action_button").description("End"));
+
+
+    //Home Screen
+    public static UiObject2 page_indicator = mDevice.findObject(By).packageName(Constants.HOME_SCREEN_PACKAGE)
+            .resourceId("com.google.android.googlequicksearchbox:id/page_indicator"));
+    public static UiObject2[] home_screen_pages = page_indicator
+
 }

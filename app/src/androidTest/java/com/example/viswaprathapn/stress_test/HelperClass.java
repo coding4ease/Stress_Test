@@ -24,6 +24,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.junit.Before;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -62,6 +63,7 @@ import static com.example.viswaprathapn.stress_test.UiElements.select_all;
 
 public class HelperClass {
 
+
     public static UiDevice mDevice;
     public static int LAUNCH_TIMEOUT = 6000;
     public static boolean check = false;
@@ -69,8 +71,8 @@ public class HelperClass {
     public static UiDevice getDevice(){
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         return mDevice;
-    }
 
+    }
     public static boolean setUp() {
         // Initialize UiDevice instance
         mDevice = getDevice();
@@ -85,12 +87,6 @@ public class HelperClass {
         return false;
     }
 
-    public static void registerListener(){
-        Context context = InstrumentationRegistry.getContext();
-        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        //Log.i(Constants.TAG, getClass().getSimpleName());
-        telephonyManager.listen(new CustomPhoneStateListener(context), PhoneStateListener.LISTEN_CALL_STATE);
-    }
 
     public static boolean launchApp(String AppName){
         Context context = InstrumentationRegistry.getContext();
@@ -325,7 +321,7 @@ public class HelperClass {
         mDevice.pressBack();
     }
 
-    public static void open(File source) throws UiObjectNotFoundException {
+    public static void open(File source) throws UiObjectNotFoundException, InterruptedException {
         launchApp(Constants.FILE_EXPLORER);
         if (source == SD_PICTURES)
             SD_card.click();
@@ -333,9 +329,14 @@ public class HelperClass {
             internal_storage.click();
         directory_structure.scrollTextIntoView("Pictures");
         Pictures.click();
+        Thread.sleep(2000);
         for (String file_name:source.list()){
+            Log.i(Constants.TAG, file_name);
             directory_structure.scrollTextIntoView(file_name);
             file_list.getChildByText(new UiSelector().className("android.widget.RelativeLayout"),file_name).click();
+            Thread.sleep(2000);
+            mDevice.pressBack();
+
         }
 
 
