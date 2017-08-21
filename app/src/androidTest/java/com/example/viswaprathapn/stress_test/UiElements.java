@@ -17,12 +17,17 @@ import static com.example.viswaprathapn.stress_test.HelperClass.mDevice;
 public class UiElements {
 
     //Browser
-    public static UiObject tabSelector = mDevice.findObject(new UiSelector().packageName(Constants.BROWSER)
-            .resourceId("com.android.browser:id/tab_switcher"));
-    public static UiObject browser_URL = mDevice.findObject(new UiSelector().packageName(Constants.BROWSER)
-            .className("android.widget.EditText").resourceId("com.android.browser:id/url"));
-    public static UiObject new_TAB = mDevice.findObject(new UiSelector().packageName(Constants.BROWSER)
+    /*public static UiObject tabSelector = mDevice.findObject(new UiSelector().packageName(Constants.BROWSER)
+            .resourceId("com.android.browser:id/tab_switcher"));*/
+    public static UiObject tabSelector = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
+            .resourceId("com.android.chrome:id/tab_switcher_button"));
+    public static UiObject browser_URL = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
+            .className("android.widget.EditText").resourceId("com.android.chrome:id/search_box_text"));
+    public static UiObject chromeToolbar = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE).resourceId("com.android.chrome:id/toolbar"));
+
+    public static UiObject new_TAB = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
             .className("android.widget.ImageButton").resourceId("com.android.browser:id/newtab"));
+
 
     //File explorer
     public static UiObject internal_storage = mDevice.findObject(new UiSelector().packageName(Constants.FILE_EXPLORER)
@@ -70,8 +75,8 @@ public class UiElements {
 
 
     //Home Screen
-    public static UiObject2 page_indicator = mDevice.findObject(By).packageName(Constants.HOME_SCREEN_PACKAGE)
-            .resourceId("com.google.android.googlequicksearchbox:id/page_indicator"));
-    public static UiObject2[] home_screen_pages = page_indicator
-
+    public static UiObject unlock_button = mDevice.findObject(new UiSelector().packageName(Constants.SYSTEM_UI)
+            .resourceId("com.android.systemui:id/lock_icon"));
+    public static UiObject status_Bar = mDevice.findObject(new UiSelector().packageName(Constants.SYSTEM_UI)
+            .resourceId("com.android.systemui:id/status_bar"));
 }
