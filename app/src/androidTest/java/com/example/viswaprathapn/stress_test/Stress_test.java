@@ -43,11 +43,14 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.example.viswaprathapn.stress_test.UiElements;
 
+import static com.example.viswaprathapn.stress_test.Constants.CHROME_PACKAGE;
 import static com.example.viswaprathapn.stress_test.Constants.DOWNLOADS;
+import static com.example.viswaprathapn.stress_test.Constants.MESSAGING_PACKAGE;
 import static com.example.viswaprathapn.stress_test.Constants.MUSIC;
 import static com.example.viswaprathapn.stress_test.Constants.PICTURES;
 import static com.example.viswaprathapn.stress_test.Constants.PICTURE_SIZE;
 import static com.example.viswaprathapn.stress_test.Constants.Phone_number;
+import static com.example.viswaprathapn.stress_test.Constants.SETTINGS_PACKAGE;
 import static com.example.viswaprathapn.stress_test.Constants.contactName;
 //import static com.example.viswaprathapn.stress_test.UiElements.home_screen_pages;
 import static org.junit.Assert.assertNull;
@@ -86,9 +89,12 @@ public class Stress_test extends HelperClass {
 
 
     @Test
-    public void test_clearAll() throws InterruptedException, UiObjectNotFoundException {
-        HelperClass.launchApp(Constants.CHROME_PACKAGE);
-        clearAllBrowserTabs();
+    public void test_clearAll() throws InterruptedException, UiObjectNotFoundException, IOException {
+        boolean status = flightMode();
+        if (status != isNetworkAvailable()) {
+            Log.i(Constants.TAG, "Testcase is pass");
+        } else
+            Log.i(Constants.TAG, "Testcase is fail");
     }
 
 

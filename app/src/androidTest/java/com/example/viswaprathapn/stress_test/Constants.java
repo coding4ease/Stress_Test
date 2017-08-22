@@ -26,6 +26,8 @@ public class Constants {
     public static final File SD_DOWNLOADS = new File("/storage/sdcard0/Download");
     public static File SD_MUSIC = new File("/storage/sdcard0/Music");
     public static File SD_PICTURES = new File("/storage/sdcard0/Pictures");
+    public static final String SMS = "This is a message. Please don't respond";
+
 
 
     //srinivas
@@ -34,7 +36,7 @@ public class Constants {
     public static int PICTURE_SIZE=7;
     public static String PIN="1234";
     public static String password_lock="test123";
-    public static String Phone_number="9686563035";
+    public static String Phone_number="9035087822";
     public static String contactName="Testing Number";
     public static final String multipageSMS="This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. This is multipage SMS. ";
 

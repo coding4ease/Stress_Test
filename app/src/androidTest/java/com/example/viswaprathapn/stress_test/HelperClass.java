@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
 import android.os.RemoteException;
@@ -43,6 +45,7 @@ import static com.example.viswaprathapn.stress_test.Constants.PICTURES;
 import static com.example.viswaprathapn.stress_test.Constants.SD_DOWNLOADS;
 import static com.example.viswaprathapn.stress_test.Constants.SD_MUSIC;
 import static com.example.viswaprathapn.stress_test.Constants.SD_PICTURES;
+import static com.example.viswaprathapn.stress_test.Constants.SMS;
 import static com.example.viswaprathapn.stress_test.UiElements.Download;
 import static com.example.viswaprathapn.stress_test.UiElements.More_Options;
 import static com.example.viswaprathapn.stress_test.UiElements.Music;
@@ -58,11 +61,15 @@ import static com.example.viswaprathapn.stress_test.UiElements.directory_structu
 import static com.example.viswaprathapn.stress_test.UiElements.end_call;
 import static com.example.viswaprathapn.stress_test.UiElements.enter_no;
 import static com.example.viswaprathapn.stress_test.UiElements.file_list;
+import static com.example.viswaprathapn.stress_test.UiElements.flightMode;
 import static com.example.viswaprathapn.stress_test.UiElements.internal_storage;
 import static com.example.viswaprathapn.stress_test.UiElements.file_list;
+import static com.example.viswaprathapn.stress_test.UiElements.messageBox;
+import static com.example.viswaprathapn.stress_test.UiElements.newMessage;
+import static com.example.viswaprathapn.stress_test.UiElements.recipientList;
 import static com.example.viswaprathapn.stress_test.UiElements.select_all;
+import static com.example.viswaprathapn.stress_test.UiElements.sendMessage;
 import static com.example.viswaprathapn.stress_test.UiElements.status_Bar;
-import static com.example.viswaprathapn.stress_test.UiElements.tabSelector;
 import static com.example.viswaprathapn.stress_test.UiElements.unlock_button;
 
 /**
@@ -137,13 +144,12 @@ public class HelperClass {
             Thread.sleep(2000);
         }
         launchApp(Constants.BROWSER);*/
-        chromeToolbar.getChild(new UiSelector().className("android.widget.ImageButton").resourceId("com.android.chrome:id/tab_switcher_button")).click();
+        UiObject tabSelector = chromeToolbar.getChild(new UiSelector().className("android.widget.ImageButton").resourceId("com.android.chrome:id/tab_switcher_button"));
+        tabSelector.click();
         UiObject chromeOptions = chromeToolbar.getChild(new UiSelector().resourceId("com.android.chrome:id/menu_button").description("More options"));
         chromeOptions.click();
         Thread.sleep(2000);
-        UiCollection optionList = new UiCollection(new UiSelector().packageName(Constants.CHROME_PACKAGE).resourceId("android.widget.ListView"));
-        optionList.getChildByText(new UiSelector().resourceId("android.widget.TextView"), "Close all tabs").click();
-        optionList.
+        Options.getChildByText(new UiSelector().className("android.widget.LinearLayout"), "Close all tabs").click();
         return true;
     }
 
@@ -182,15 +188,19 @@ public class HelperClass {
 
     public static void setBrowserURL(int website_ID, String website_URL) throws UiObjectNotFoundException, InterruptedException {
         //boolean check=false;
-        Log.i(Constants.TAG, "Website no =" + website_ID + "%16=" + (website_ID % 16));
+        Log.i(Constants.TAG, "Website no =" + website_ID + "%20=" + (website_ID % 20));
         UiElements.browser_URL.click();
         Thread.sleep(1000);
         UiElements.browser_URL.setText(website_URL);
         //mDevice.click(445,765);
         mDevice.pressEnter();
         Thread.sleep(5000);
+        UiObject tabSelector = chromeToolbar.getChild(new UiSelector().className("android.widget.ImageButton").resourceId("com.android.chrome:id/tab_switcher_button"));
+        UiObject new_TAB = chromeToolbar.getChild(new UiSelector().className("android.widget.Button").resourceId("com.android.chrome:id/new_tab_button"));
 
-        if ((website_ID % 16) == 0) {
+
+
+        if ((website_ID % 20) == 0) {
             clearAllBrowserTabs();
         } else {
             //website_ID=website_ID++;
@@ -198,7 +208,7 @@ public class HelperClass {
             Thread.sleep(2000);
                 /*UiObject new_TAB = mDevice.findObject(new UiSelector().packageName(Constants.BROWSER)
                         .className("android.widget.ImageButton").resourceId("com.android.browser:id/newtab"));*/
-            UiElements.new_TAB.click();
+            new_TAB.click();
             Thread.sleep(2000);
             //check= true;
             //return check;
@@ -356,6 +366,36 @@ public class HelperClass {
     public static void delay(int wait) throws InterruptedException {
         Thread.sleep(wait*1000);
     }
+
+
+    public static boolean sendSMS(String Phone_number) throws UiObjectNotFoundException, InterruptedException {
+        launchApp(Constants.MESSAGING_PACKAGE);
+        newMessage.click();
+        Thread.sleep(2000);
+        recipientList.setText(Phone_number);
+        Thread.sleep(2000);
+        messageBox.setText(SMS);
+        Thread.sleep(2000);
+        sendMessage.click();
+        return true;
+    }
+
+    public boolean isNetworkAvailable() {
+        Context context = InstrumentationRegistry.getContext();
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public boolean flightMode() throws UiObjectNotFoundException, InterruptedException {
+        mDevice = getDevice();
+        mDevice.openQuickSettings();
+        flightMode.click();
+        Thread.sleep(5000);
+        return flightMode.isChecked();
+    }
+
 
 
     //srinivas

@@ -19,14 +19,26 @@ public class UiElements {
     //Browser
     /*public static UiObject tabSelector = mDevice.findObject(new UiSelector().packageName(Constants.BROWSER)
             .resourceId("com.android.browser:id/tab_switcher"));*/
-    public static UiObject tabSelector = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
-            .resourceId("com.android.chrome:id/tab_switcher_button"));
+    /*public static UiObject tabSelector = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
+            .resourceId("com.android.chrome:id/tab_switcher_button"));*/
     public static UiObject browser_URL = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
             .className("android.widget.EditText").resourceId("com.android.chrome:id/search_box_text"));
     public static UiObject chromeToolbar = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE).resourceId("com.android.chrome:id/toolbar"));
 
-    public static UiObject new_TAB = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
-            .className("android.widget.ImageButton").resourceId("com.android.browser:id/newtab"));
+    /*public static UiObject new_TAB = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
+            .className("android.widget.ImageButton").resourceId("com.android.browser:id/newtab"));*/
+
+    //Messaging
+    public static UiObject newMessage = mDevice.findObject(new UiSelector().packageName(Constants.MESSAGING_PACKAGE)
+            .resourceId("com.android.mms:id/floating_action_button_container"));
+    public static UiObject recipientList = mDevice.findObject(new UiSelector().resourceId("com.android.mms:id/recipients_editor")
+            .className("android.widget.MultiAutoCompleteTextView"));
+    public static UiObject messageBox = mDevice.findObject(new UiSelector().className("android.widget.EditText").resourceId("com.android.mms:id/embedded_text_editor"));
+    public static UiObject sendMessage = mDevice.findObject(new UiSelector().className("android.widget.ImageButton").resourceId("com.android.mms:id/send_button_sms"));
+
+
+    //Flight Mode
+    public static UiObject flightMode = mDevice.findObject(new UiSelector().packageName(Constants.SYSTEM_UI).className("android.widget.Switch").description("Airplane mode"));
 
 
     //File explorer
