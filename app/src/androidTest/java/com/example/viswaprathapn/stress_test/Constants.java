@@ -19,6 +19,7 @@ public class Constants {
     public static final String EMAIL_PACKAGE="com.android.email";
     public static final String CHROME_PACKAGE="com.android.chrome";
     public static final String SETTINGS_PACKAGE = "com.android.settings";
+    public static final String SIM_SETTING ="com.qualcomm.qti.simsettings";
     public static String TAG = "Automation_ST";
     public static final File DOWNLOADS = new File("/storage/sdcard0/Download");
     public static File MUSIC = new File("/storage/sdcard1/Music");

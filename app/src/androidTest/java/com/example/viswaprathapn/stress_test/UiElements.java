@@ -34,8 +34,15 @@ public class UiElements {
     public static UiObject recipientList = mDevice.findObject(new UiSelector().resourceId("com.android.mms:id/recipients_editor")
             .className("android.widget.MultiAutoCompleteTextView"));
     public static UiObject messageBox = mDevice.findObject(new UiSelector().className("android.widget.EditText").resourceId("com.android.mms:id/embedded_text_editor"));
-    public static UiObject sendMessage = mDevice.findObject(new UiSelector().className("android.widget.ImageButton").resourceId("com.android.mms:id/send_button_sms"));
+    public static UiObject sendMessage = mDevice.findObject(new UiSelector().className("android.widget.ImageButton").description("Send"));
+    //MMS
+    public static UiObject attach = mDevice.findObject(new UiSelector().resourceId("com.android.mms:id/add_attachment_first").description("Attach"));
+    public static UiCollection attachmentList = new UiCollection(new UiSelector().className("android.widget.GridView"));
+    public static UiObject thumbnail = mDevice.findObject(new UiSelector().packageName("com.android.documentsui").resourceId("com.android.documentsui:id/icon_thumb"));
+    public static UiObject sendMMS = mDevice.findObject(new UiSelector().className("android.widget.ImageButton").description("Send MMS"));
 
+    //Camera
+    public static UiObject cameraShutter = mDevice.findObject(new UiSelector().packageName("org.codeaurora.snapcam").resourceId("org.codeaurora.snapcam:id/shutter_button"));
 
     //Flight Mode
     public static UiObject flightMode = mDevice.findObject(new UiSelector().packageName(Constants.SYSTEM_UI).className("android.widget.Switch").description("Airplane mode"));
@@ -83,7 +90,11 @@ public class UiElements {
     public static UiObject dial = mDevice.findObject(new UiSelector().packageName(Constants.DIALER)
             .resourceId("com.android.dialer:id/dialpad_floating_action_button_container"));
     public static UiObject end_call = mDevice.findObject(new UiSelector().packageName(Constants.DIALER)
-            .resourceId("com.android.dialer:id/floating_end_call_action_button").description("End"));
+            .resourceId("com.android.dialer:id/floating_end_call_action_button").description("End Call"));
+
+    //Settings
+    public static UiScrollable Settings = new UiScrollable(new UiSelector().packageName(Constants.SETTINGS_PACKAGE).className("android.support.v7.widget.RecyclerView"));
+    //public static UiObject SIMCARDS = mDevice.findObject(new UiSelector().packageName(Constants.SETTINGS_PACKAGE).resourceId())
 
 
     //Home Screen

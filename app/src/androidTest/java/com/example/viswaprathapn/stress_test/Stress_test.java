@@ -43,6 +43,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.example.viswaprathapn.stress_test.UiElements;
 
+import static android.view.KeyEvent.KEYCODE_ENDCALL;
 import static com.example.viswaprathapn.stress_test.Constants.CHROME_PACKAGE;
 import static com.example.viswaprathapn.stress_test.Constants.DOWNLOADS;
 import static com.example.viswaprathapn.stress_test.Constants.MESSAGING_PACKAGE;
@@ -51,8 +52,11 @@ import static com.example.viswaprathapn.stress_test.Constants.PICTURES;
 import static com.example.viswaprathapn.stress_test.Constants.PICTURE_SIZE;
 import static com.example.viswaprathapn.stress_test.Constants.Phone_number;
 import static com.example.viswaprathapn.stress_test.Constants.SETTINGS_PACKAGE;
+import static com.example.viswaprathapn.stress_test.Constants.SMS;
 import static com.example.viswaprathapn.stress_test.Constants.contactName;
 //import static com.example.viswaprathapn.stress_test.UiElements.home_screen_pages;
+import static com.example.viswaprathapn.stress_test.Constants.multipageSMS;
+import static com.example.viswaprathapn.stress_test.UiElements.end_call;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -97,6 +101,17 @@ public class Stress_test extends HelperClass {
             Log.i(Constants.TAG, "Testcase is fail");
     }
 
+    @Test
+    public void test_sendsms() throws InterruptedException, UiObjectNotFoundException {
+        launchApp(Constants.MESSAGING_PACKAGE);
+        sendMMS(Phone_number, "Capture picture");
+    }
+
+    @Test
+    public void test_simstatus() throws UiObjectNotFoundException {
+        launchApp(Constants.SIM_SETTING);
+        simStatusChange();
+    }
 
     @Test
     public void test_02() throws InterruptedException, UiObjectNotFoundException, IOException {
@@ -143,18 +158,19 @@ public class Stress_test extends HelperClass {
     }
     @Test
     public void test_04() throws IOException, UiObjectNotFoundException, InterruptedException, RemoteException {
-        //registerListener();
-        callByDialer(9035087822L, 60);
+        callByDialer(9035087822L);
+        Thread.sleep(2000);
+        if (callState() == 2 ) {
+            mDevice.pressHome();
+            Thread.sleep(1000);
+            sendSMS(Phone_number, SMS);
+            delay(55);
+            mDevice.pressKeyCode(KEYCODE_ENDCALL);
+            //end_call.click();
+        }
     }
 
-    /*@Test
-    public void test_05() throws UiObjectNotFoundException {
-        int home_page_count = home_screen_pages.getChildCount(new UiSelector().packageName(Constants.HOME_SCREEN_PACKAGE)
-                .className("android.widget.FrameLayout"));
-        /*UiObject active_page = home_screen_pages.getChild(new UiSelector().className("android.widget.ImageView").
-                resourceId("com.google.android.googlequicksearchbox:id/active"));
-        UiObject2 [] page_indicator = home_screen_pages.
-    }*/
+
 
     //srinivas
 

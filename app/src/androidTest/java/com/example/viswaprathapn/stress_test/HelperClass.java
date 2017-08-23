@@ -53,6 +53,10 @@ import static com.example.viswaprathapn.stress_test.UiElements.OK_button;
 import static com.example.viswaprathapn.stress_test.UiElements.Options;
 import static com.example.viswaprathapn.stress_test.UiElements.Pictures;
 import static com.example.viswaprathapn.stress_test.UiElements.SD_card;
+import static com.example.viswaprathapn.stress_test.UiElements.Settings;
+import static com.example.viswaprathapn.stress_test.UiElements.attach;
+import static com.example.viswaprathapn.stress_test.UiElements.attachmentList;
+import static com.example.viswaprathapn.stress_test.UiElements.cameraShutter;
 import static com.example.viswaprathapn.stress_test.UiElements.chromeToolbar;
 import static com.example.viswaprathapn.stress_test.UiElements.copy;
 import static com.example.viswaprathapn.stress_test.UiElements.dial;
@@ -68,8 +72,10 @@ import static com.example.viswaprathapn.stress_test.UiElements.messageBox;
 import static com.example.viswaprathapn.stress_test.UiElements.newMessage;
 import static com.example.viswaprathapn.stress_test.UiElements.recipientList;
 import static com.example.viswaprathapn.stress_test.UiElements.select_all;
+import static com.example.viswaprathapn.stress_test.UiElements.sendMMS;
 import static com.example.viswaprathapn.stress_test.UiElements.sendMessage;
 import static com.example.viswaprathapn.stress_test.UiElements.status_Bar;
+import static com.example.viswaprathapn.stress_test.UiElements.thumbnail;
 import static com.example.viswaprathapn.stress_test.UiElements.unlock_button;
 
 /**
@@ -352,14 +358,15 @@ public class HelperClass {
 
     }
 
-    public static void callByDialer(long number, int wait) throws UiObjectNotFoundException, InterruptedException {
+    public static void callByDialer(long number) throws UiObjectNotFoundException, InterruptedException {
         launchApp(Constants.DIALER);
         dial_pad.click();
         enter_no.clearTextField();
         enter_no.setText(Long.toString(number));
         dial.click();
-        delay(wait);
-        end_call.click();
+        Thread.sleep(5000);
+        //delay(wait);
+        //end_call.click();
 
     }
 
@@ -368,7 +375,7 @@ public class HelperClass {
     }
 
 
-    public static boolean sendSMS(String Phone_number) throws UiObjectNotFoundException, InterruptedException {
+    public static boolean sendSMS(String Phone_number, String SMS) throws UiObjectNotFoundException, InterruptedException {
         launchApp(Constants.MESSAGING_PACKAGE);
         newMessage.click();
         Thread.sleep(2000);
@@ -380,6 +387,47 @@ public class HelperClass {
         return true;
     }
 
+    public static boolean sendMMS(String Phone_number, String attachments) throws UiObjectNotFoundException, InterruptedException {
+        launchApp(Constants.MESSAGING_PACKAGE);
+        newMessage.click();
+        Thread.sleep(2000);
+        recipientList.setText(Phone_number);
+        Thread.sleep(2000);
+        attach.click();
+        if (attachments == "Pictures"){
+            attachmentList.getChildByText(new UiSelector().className("android.widget.LinearLayout"), "Pictures").click();
+            Thread.sleep(1000);
+            thumbnail.click();
+        }
+        else if (attachments == "Capture picture"){
+            attachmentList.getChildByText(new UiSelector().className("android.widget.LinearLayout"), "Capture picture").click();
+            Thread.sleep(1000);
+            cameraShutter.click();
+            Thread.sleep(1000);
+            mDevice.findObject(new UiSelector().resourceId("org.codeaurora.snapcam:id/btn_done")).click();
+        }
+        else if (attachments == "Videos"){
+            attachmentList.getChildByText(new UiSelector().className("android.widget.LinearLayout"), "Videos").click();
+            Thread.sleep(1000);
+            thumbnail.click();
+        }
+        else if (attachments == "Capture video"){
+            attachmentList.getChildByText(new UiSelector().className("android.widget.LinearLayout"), "Capture video").click();
+            Thread.sleep(1000);
+            cameraShutter.click();
+            Thread.sleep(3000);
+            cameraShutter.click();
+            Thread.sleep(1000);
+            mDevice.findObject(new UiSelector().resourceId("org.codeaurora.snapcam:id/btn_done")).click();
+        }
+        messageBox.setText(SMS);
+        Thread.sleep(2000);
+        sendMMS.click();
+
+        return true;
+
+    }
+
     public boolean isNetworkAvailable() {
         Context context = InstrumentationRegistry.getContext();
         ConnectivityManager connectivityManager
@@ -387,6 +435,19 @@ public class HelperClass {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+    public int callState(){
+        Context context = InstrumentationRegistry.getContext();
+        TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return telephony.getCallState();
+    }
+
+    public void simStatusChange() throws UiObjectNotFoundException {
+        /*Settings.getChildByText(new UiSelector().resourceId("com.android.settings:id/dashboard_tile")
+                .className("android.widget.LinearLayout"), "SIM cards").click();*/
+        Options.getChildByText(new UiSelector().)
+    }
+
 
     public boolean flightMode() throws UiObjectNotFoundException, InterruptedException {
         mDevice = getDevice();
