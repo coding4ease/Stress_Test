@@ -56,6 +56,7 @@ import static com.example.viswaprathapn.stress_test.Constants.SMS;
 import static com.example.viswaprathapn.stress_test.Constants.contactName;
 //import static com.example.viswaprathapn.stress_test.UiElements.home_screen_pages;
 import static com.example.viswaprathapn.stress_test.Constants.multipageSMS;
+import static com.example.viswaprathapn.stress_test.UiElements.Settings;
 import static com.example.viswaprathapn.stress_test.UiElements.end_call;
 import static org.junit.Assert.assertNull;
 
@@ -108,9 +109,12 @@ public class Stress_test extends HelperClass {
     }
 
     @Test
-    public void test_simstatus() throws UiObjectNotFoundException {
-        launchApp(Constants.SIM_SETTING);
-        simStatusChange();
+    public void test_simstatus() throws UiObjectNotFoundException, InterruptedException {
+        launchApp(Constants.SETTINGS_PACKAGE);
+        Settings.getChildByText(new UiSelector().className("android.widget.LinearLayout")
+                .resourceId("com.android.settings:id/dashboard_tile"),"SIM cards").click();
+        for (int i=0; i<10; i++)
+            simStatusChange(2);
     }
 
     @Test

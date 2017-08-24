@@ -12,6 +12,8 @@ import android.os.Environment;
 import android.os.RemoteException;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.BySelector;
+import android.support.test.uiautomator.SearchCondition;
 import android.support.test.uiautomator.UiCollection;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
@@ -56,6 +58,7 @@ import static com.example.viswaprathapn.stress_test.UiElements.SD_card;
 import static com.example.viswaprathapn.stress_test.UiElements.Settings;
 import static com.example.viswaprathapn.stress_test.UiElements.attach;
 import static com.example.viswaprathapn.stress_test.UiElements.attachmentList;
+import static com.example.viswaprathapn.stress_test.UiElements.buttonPanel;
 import static com.example.viswaprathapn.stress_test.UiElements.cameraShutter;
 import static com.example.viswaprathapn.stress_test.UiElements.chromeToolbar;
 import static com.example.viswaprathapn.stress_test.UiElements.copy;
@@ -442,10 +445,31 @@ public class HelperClass {
         return telephony.getCallState();
     }
 
-    public void simStatusChange() throws UiObjectNotFoundException {
+
+    public static SearchCondition<Boolean> hasObject(final BySelector selector) {
+        return new SearchCondition<Boolean>() {
+            @Override
+            Boolean apply(Searchable container) {
+                return container.hasObject(selector);
+            }
+        };
+    }
+
+    public void simStatusChange(int SIM_NO) throws UiObjectNotFoundException, InterruptedException {
         /*Settings.getChildByText(new UiSelector().resourceId("com.android.settings:id/dashboard_tile")
                 .className("android.widget.LinearLayout"), "SIM cards").click();*/
-        Options.getChildByText(new UiSelector().)
+        UiObject SIM = Options.getChild(new UiSelector().className("android.widget.LinearLayout").index(SIM_NO));
+        //UiObject SIM2 = Options.getChild(new UiSelector().className("android.widget.LinearLayout").index(2));
+        UiObject SIM_status = SIM.getChild(new UiSelector().resourceId("com.qualcomm.qti.simsettings:id/sub_switch_widget").className("android.widget.Switch"));
+        //UiObject SIM2_status = SIM2.getChild(new UiSelector().resourceId("com.qualcomm.qti.simsettings:id/sub_switch_widget").className("android.widget.Switch"));
+        boolean simStatus = SIM_status.isChecked();
+        SIM_status.click();
+        Thread.sleep(2000);
+        if (simStatus)
+            buttonPanel.getChildByText(new UiSelector().className("android.widget.Button"), "OK").clickAndWaitForNewWindow();
+        mDevice.wait
+        buttonPanel.getChildByText(new UiSelector().className("android.widget.Button"), "OK").click();
+        Thread.sleep(1000);
     }
 
 

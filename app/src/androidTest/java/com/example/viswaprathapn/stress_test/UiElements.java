@@ -95,6 +95,7 @@ public class UiElements {
     //Settings
     public static UiScrollable Settings = new UiScrollable(new UiSelector().packageName(Constants.SETTINGS_PACKAGE).className("android.support.v7.widget.RecyclerView"));
     //public static UiObject SIMCARDS = mDevice.findObject(new UiSelector().packageName(Constants.SETTINGS_PACKAGE).resourceId())
+    public static  UiCollection buttonPanel = new UiCollection(new UiSelector().className("android.widget.ScrollView").resourceId("android:id/buttonPanel"));
 
 
     //Home Screen
