@@ -451,10 +451,11 @@ public class HelperClass {
         /*Settings.getChildByText(new UiSelector().resourceId("com.android.settings:id/dashboard_tile")
                 .className("android.widget.LinearLayout"), "SIM cards").click();*/
         Log.i(Constants.TAG, "c"+ Options.getChildCount(new UiSelector().className("android.widget.LinearLayout")));
-        UiObject SIM = Options.getChild(new UiSelector().className("android.widget.LinearLayout").index(SIM_NO));
+        UiObject SIM_status = Options.getChild(new UiSelector().className("android.widget.LinearLayout").index(SIM_NO)).getChild(new UiSelector().className("android.widget.LinearLayout").resourceId("android:id/widget_frame"))
+                .getChild(new UiSelector().className("android.widget.Switch").resourceId("com.qualcomm.qti.simsettings:id/sub_switch_widget"));
 
         //UiObject SIM2 = Options.getChild(new UiSelector().className("android.widget.LinearLayout").index(2));
-        UiObject SIM_status = SIM.getChild(new UiSelector().resourceId("com.qualcomm.qti.simsettings:id/sub_switch_widget").className("android.widget.Switch"));
+        //UiObject SIM_status = SIM.getChild(new UiSelector().resourceId("com.qualcomm.qti.simsettings:id/sub_switch_widget").className("android.widget.Switch"));
         //UiObject SIM2_status = SIM2.getChild(new UiSelector().resourceId("com.qualcomm.qti.simsettings:id/sub_switch_widget").className("android.widget.Switch"));
         boolean simStatus = SIM_status.isChecked();
         SIM_status.click();
