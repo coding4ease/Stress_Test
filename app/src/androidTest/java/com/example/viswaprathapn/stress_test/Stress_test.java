@@ -75,6 +75,7 @@ public class Stress_test extends HelperClass {
 
     @Test
     public void test_01() throws UiObjectNotFoundException, IOException, InterruptedException {
+        //setDisplayTime();
         HelperClass.launchApp(Constants.CHROME_PACKAGE);
         /*UiObject tabSelector = mDevice.findObject(new UiSelector().packageName(Constants.BROWSER)
                 .resourceId("com.android.browser:id/tab_switcher"));

@@ -1,5 +1,6 @@
 package com.example.viswaprathapn.stress_test;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -47,6 +49,7 @@ import static com.example.viswaprathapn.stress_test.Constants.PICTURES;
 import static com.example.viswaprathapn.stress_test.Constants.SD_DOWNLOADS;
 import static com.example.viswaprathapn.stress_test.Constants.SD_MUSIC;
 import static com.example.viswaprathapn.stress_test.Constants.SD_PICTURES;
+import static com.example.viswaprathapn.stress_test.Constants.SETTINGS_PACKAGE;
 import static com.example.viswaprathapn.stress_test.Constants.SMS;
 import static com.example.viswaprathapn.stress_test.UiElements.Download;
 import static com.example.viswaprathapn.stress_test.UiElements.More_Options;
@@ -127,6 +130,18 @@ public class HelperClass {
 
     }
 
+     public static boolean setDisplayTime() throws UiObjectNotFoundException, InterruptedException {
+         launchApp(Constants.SETTINGS_PACKAGE);
+         UiElements.Settings.getChildByText(new UiSelector().className("android.widget.TextView"), "Display").click();
+         delay(2);
+         UiElements.Settings.getChildByText(new UiSelector().className("android.widget.TextView"), "Sleep").click();
+         delay(2);
+         UiElements.list.getChildByText(new UiSelector().resourceId("com.android.settings:id/text1"),"30 minutes").click();
+         delay(2);
+         mDevice.pressHome();
+         return true;
+     }
+
     public static void clearAllRecentApps() throws UiObjectNotFoundException, InterruptedException, RemoteException {
         mDevice.pressRecentApps();
         Thread.sleep(1000);
@@ -165,6 +180,8 @@ public class HelperClass {
     public static void readXLSX(String excelFilePath) throws IOException, InterruptedException, UiObjectNotFoundException {
         int website_ID = 0;
         String website_URL = "";
+
+
         FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
            Workbook workbook = new XSSFWorkbook(inputStream);

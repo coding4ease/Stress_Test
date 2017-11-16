@@ -96,7 +96,7 @@ public class UiElements {
     public static UiScrollable Settings = new UiScrollable(new UiSelector().packageName(Constants.SETTINGS_PACKAGE).className("android.support.v7.widget.RecyclerView"));
     //public static UiObject SIMCARDS = mDevice.findObject(new UiSelector().packageName(Constants.SETTINGS_PACKAGE).resourceId())
     public static  UiCollection buttonPanel = new UiCollection(new UiSelector().className("android.widget.ScrollView").resourceId("android:id/buttonPanel"));
-
+    public static UiCollection list = new UiCollection(new UiSelector().className("android.widget.ListView").resourceId("android:id/select_dialog_listview"));
 
     //Home Screen
     public static UiObject unlock_button = mDevice.findObject(new UiSelector().packageName(Constants.SYSTEM_UI)
