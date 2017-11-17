@@ -51,6 +51,7 @@ import static com.example.viswaprathapn.stress_test.Constants.SD_MUSIC;
 import static com.example.viswaprathapn.stress_test.Constants.SD_PICTURES;
 import static com.example.viswaprathapn.stress_test.Constants.SETTINGS_PACKAGE;
 import static com.example.viswaprathapn.stress_test.Constants.SMS;
+import static com.example.viswaprathapn.stress_test.Constants.TAG;
 import static com.example.viswaprathapn.stress_test.UiElements.Download;
 import static com.example.viswaprathapn.stress_test.UiElements.More_Options;
 import static com.example.viswaprathapn.stress_test.UiElements.Music;
@@ -189,7 +190,7 @@ public class HelperClass {
         Iterator<Row> iterator = firstSheet.iterator();
 
 
-        while (iterator.hasNext() && website_ID < 5) {
+        while (iterator.hasNext() && website_ID < 100) {
             Row nextRow = iterator.next();
             Iterator<Cell> cellIterator = nextRow.cellIterator();
 
@@ -214,8 +215,18 @@ public class HelperClass {
 
     public static void setBrowserURL(int website_ID, String website_URL) throws UiObjectNotFoundException, InterruptedException {
         //boolean check=false;
+        String tabNumber = chromeToolbar.getChild(new UiSelector().className("android.widget.ImageButton").resourceId("com.android.chrome:id/tab_switcher_button")).getContentDescription();
         Log.i(Constants.TAG, "Website no =" + website_ID + "%20=" + (website_ID % 20));
-        UiElements.browser_URL.click();
+        Log.i(Constants.TAG, "tabNumber = " + tabNumber);
+        if (tabNumber.equals("1 open tab")) {
+
+            UiElements.browser_URL.click();
+            Log.i(Constants.TAG, "tabNumber = " + tabNumber);
+        }
+        else {
+            Log.i(Constants.TAG, "tabNumber = " + tabNumber);
+            UiElements.searchBox.click();
+        }
         Thread.sleep(1000);
         UiElements.browser_URL.setText(website_URL);
         //mDevice.click(445,765);
@@ -228,6 +239,9 @@ public class HelperClass {
 
         if ((website_ID % 20) == 0) {
             clearAllBrowserTabs();
+            Thread.sleep(1000);
+            launchApp(Constants.CHROME_PACKAGE);
+            Thread.sleep(1000);
         } else {
             //website_ID=website_ID++;
             tabSelector.click();

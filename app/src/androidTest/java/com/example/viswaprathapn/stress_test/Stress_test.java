@@ -77,6 +77,11 @@ public class Stress_test extends HelperClass {
     public void test_01() throws UiObjectNotFoundException, IOException, InterruptedException {
         //setDisplayTime();
         HelperClass.launchApp(Constants.CHROME_PACKAGE);
+        delay(2);
+        clearAllBrowserTabs();
+        delay(2);
+        HelperClass.launchApp(Constants.CHROME_PACKAGE);
+        delay(2);
         /*UiObject tabSelector = mDevice.findObject(new UiSelector().packageName(Constants.BROWSER)
                 .resourceId("com.android.browser:id/tab_switcher"));
         UiObject browser_URL = mDevice.findObject(new UiSelector().packageName(Constants.BROWSER)

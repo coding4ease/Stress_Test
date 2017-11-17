@@ -21,8 +21,10 @@ public class UiElements {
             .resourceId("com.android.browser:id/tab_switcher"));*/
     /*public static UiObject tabSelector = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
             .resourceId("com.android.chrome:id/tab_switcher_button"));*/
-    public static UiObject browser_URL = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
+    public static UiObject searchBox = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
             .className("android.widget.EditText").resourceId("com.android.chrome:id/search_box_text"));
+    public static UiObject browser_URL = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
+            .className("android.widget.EditText").resourceId("com.android.chrome:id/url_bar"));
     public static UiObject chromeToolbar = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE).resourceId("com.android.chrome:id/toolbar"));
 
     /*public static UiObject new_TAB = mDevice.findObject(new UiSelector().packageName(Constants.CHROME_PACKAGE)
